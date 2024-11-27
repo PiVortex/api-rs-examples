@@ -1,6 +1,4 @@
-use near_api::{prelude::*, signer::secret_key::SecretKeySigner};
-use near_crypto::SecretKey;
-use std::str::FromStr;
+use near_api::prelude::*;
 
 #[tokio::main]
 async fn main() {
