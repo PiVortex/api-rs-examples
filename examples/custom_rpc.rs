@@ -23,5 +23,4 @@ async fn main() {
         .unwrap();
 
     println!("{:?}", _near_balance);
-
 }

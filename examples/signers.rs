@@ -1,13 +1,13 @@
 use near_api::prelude::*;
 use near_crypto::SecretKey;
-use std::str::FromStr;
 use near_primitives::account::AccessKeyPermission;
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() {
     let network = NetworkConfig::testnet();
 
-    // Specify account Id 
+    // Specify account Id
     let my_account_id: AccountId = "a-whole-new-account.testnet".parse().unwrap();
 
     let private_key = SecretKey::from_str("ed25519:3bUTUXCPHPbAD5JDukzsWT5BaJ9iZA3FF9wLgYgRvzC7CDYMgmEExtxyGjnGATvmM3oggqUErvRkN9sjzNTD8yd7").unwrap();
@@ -25,8 +25,8 @@ async fn main() {
         .await
         .unwrap();
 
-    // access key file 
-    let file_signer = Signer::new(Signer::access_keyfile(./))
+    // access key file
+    // let file_signer = Signer::new(Signer::access_keyfile(./))
 }
 
 // Leave out ledger, not common + don't want to attach my own!

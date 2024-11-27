@@ -7,7 +7,7 @@ async fn main() {
 
     // Change the RPC URL optional
     network.rpc_url = "https://rpc.testnet.near.org".parse().unwrap();
-    
+
     // RPC failover
     // TODO?
 
@@ -23,7 +23,7 @@ async fn main() {
         .unwrap();
 
     // Get details
-    // Method doesn't exist 
+    // Method doesn't exist
 
     // Get state
     let _account_info = my_account.view().fetch_from(&network).await.unwrap();
