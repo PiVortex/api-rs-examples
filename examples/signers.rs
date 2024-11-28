@@ -1,10 +1,10 @@
 use near_api::prelude::*;
 use near_api::signer::keystore::KeystoreSigner;
-use near_crypto::{SecretKey, PublicKey};
+use near_crypto::{PublicKey, SecretKey};
 use near_primitives::account::AccessKeyPermission;
-use std::str::FromStr;
-use std::path::Path;
 use std::env;
+use std::path::Path;
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() {
@@ -47,7 +47,8 @@ async fn main() {
         .unwrap();
 
     // keystore specifying public key
-    let public_key = PublicKey::from_str("ed25519:G5k73gFDHjFQTaHp26zShbcMt2Quth2sJJfqra1eetuT").unwrap();
+    let public_key =
+        PublicKey::from_str("ed25519:G5k73gFDHjFQTaHp26zShbcMt2Quth2sJJfqra1eetuT").unwrap();
     let keystore_signer = Signer::new(Signer::keystore(public_key)).unwrap();
 
     // test keystore signer
@@ -63,7 +64,9 @@ async fn main() {
         .unwrap();
 
     // Keystore not specifying public key
-    let search_keystore_signer = KeystoreSigner::search_for_keys(my_account_id.clone(), &network).await.unwrap();
+    let search_keystore_signer = KeystoreSigner::search_for_keys(my_account_id.clone(), &network)
+        .await
+        .unwrap();
     let keystore_signer_search = Signer::new(search_keystore_signer).unwrap();
 
     // test keystore signer search
@@ -79,7 +82,8 @@ async fn main() {
         .unwrap();
 
     // using seed phrase
-    let seed_phrase = "shoe sell gate jelly half tissue parrot robust census lens staff ship".to_string();
+    let seed_phrase =
+        "shoe sell gate jelly half tissue parrot robust census lens staff ship".to_string();
     let seed_phrase_signer = Signer::new(Signer::seed_phrase(seed_phrase, None).unwrap()).unwrap();
 
     // test seed phrase signer
