@@ -2149,6 +2149,7 @@ dependencies = [
  "near-api",
  "near-crypto",
  "near-primitives",
+ "serde_json",
  "tokio",
 ]
 
