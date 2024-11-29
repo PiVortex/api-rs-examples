@@ -12,7 +12,6 @@ async fn main() {
     let my_account = Account(my_account_id.clone());
 
     // Create signer object from private key
-    // Need to use near_crypto::SecretKey
     let private_key = SecretKey::from_str("ed25519:3bUTUXCPHPbAD5JDukzsWT5BaJ9iZA3FF9wLgYgRvzC7CDYMgmEExtxyGjnGATvmM3oggqUErvRkN9sjzNTD8yd7").unwrap();
     let signer = Signer::new(Signer::secret_key(private_key)).unwrap();
     let public_key = signer.get_public_key().await.unwrap();
@@ -85,7 +84,11 @@ async fn main() {
     // Keys --------------------------------------------------------------------------------------------
 
     // Get a key from an account with a specific public key
-    let key = my_account.access_key(public_key).fetch_from(&network).await.unwrap();
+    let key = my_account
+        .access_key(public_key)
+        .fetch_from(&network)
+        .await
+        .unwrap();
 
     // List all keys
     let keys = my_account.list_keys().fetch_from(&network).await.unwrap();
@@ -98,9 +101,15 @@ async fn main() {
         .unwrap();
 
     println!("New private key: {:?}", new_private_key.to_string());
-    println!("New public key: {:?}", new_private_key.public_key().to_string());
+    println!(
+        "New public key: {:?}",
+        new_private_key.public_key().to_string()
+    );
 
-    txn.with_signer(signer.clone()).send_to(&network).await.unwrap();
+    txn.with_signer(signer.clone())
+        .send_to(&network)
+        .await
+        .unwrap();
 
     // Add a function call key
     let new_function_call_key = AccessKeyPermission::FunctionCall(FunctionCallPermission {
@@ -116,12 +125,23 @@ async fn main() {
         .unwrap();
 
     println!("New private key: {:?}", new_private_key.to_string());
-    println!("New public key: {:?}", new_private_key.public_key().to_string());
+    println!(
+        "New public key: {:?}",
+        new_private_key.public_key().to_string()
+    );
 
-    txn.with_signer(signer.clone()).send_to(&network).await.unwrap();
+    txn.with_signer(signer.clone())
+        .send_to(&network)
+        .await
+        .unwrap();
 
     // Delete a key
-    my_account.delete_key(new_private_key.public_key()).with_signer(signer.clone()).send_to(&network).await.unwrap();
+    my_account
+        .delete_key(new_private_key.public_key())
+        .with_signer(signer.clone())
+        .send_to(&network)
+        .await
+        .unwrap();
 }
 
 // A lot more can be done here
