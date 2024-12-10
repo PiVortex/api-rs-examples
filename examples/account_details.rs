@@ -2,12 +2,12 @@ use near_api::prelude::{Account, AccountId, NetworkConfig, Tokens};
 
 #[tokio::main]
 async fn main() {
-    // Create a connection to the NEAR testnet
-    let network = NetworkConfig::testnet();
-
     let my_account_id: AccountId = "example-account.testnet".parse().unwrap();
     // Create an account object
     let my_account = Account(my_account_id.clone());
+
+    // Create a connection to the NEAR testnet
+    let network = NetworkConfig::testnet();
 
     // Gets the available, and staked balance in yoctoNEAR
     let near_balance = Tokens::of(my_account_id.clone())

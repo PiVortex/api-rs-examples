@@ -16,7 +16,10 @@ async fn main() {
     let signer = Signer::new(Signer::secret_key(private_key)).unwrap();
 
     // Create a connection to the NEAR testnet
-    let network = NetworkConfig::testnet();
+    let mut network = NetworkConfig::testnet();
+
+    // Change the RPC URL optional
+    network.rpc_url = "https://rpc.testnet.near.org".parse().unwrap();
 
     // Send NEAR tokens to another account
     let send_tokens_result = Tokens::of(account_id.clone()) // example-account.testnet
