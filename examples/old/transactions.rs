@@ -4,6 +4,7 @@ use near_primitives::action::{FunctionCallAction, TransferAction};
 use near_primitives::transaction::Action;
 use serde_json::json;
 use std::str::FromStr;
+
 #[tokio::main]
 async fn main() {
     let network = NetworkConfig::testnet();
