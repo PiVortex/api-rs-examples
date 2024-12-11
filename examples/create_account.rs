@@ -1,8 +1,8 @@
 use dotenv::dotenv;
-use near_api::prelude::{Account, AccountId, NetworkConfig, Signer, NearToken};
+use near_api::prelude::{Account, AccountId, NearToken, NetworkConfig, Signer};
 use near_crypto::SecretKey;
-use std::str::FromStr;
 use rand::{thread_rng, Rng};
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() {
@@ -39,7 +39,7 @@ async fn main() {
         .unwrap();
     println!("{:?}", create_account_result);
 
-    // Create a sub account 
+    // Create a sub account
     let sub_account_id = generate_sub_account_id(account_id_string);
     let (private_key, create_sub_account_tx) = Account::create_account()
         .fund_myself(
@@ -81,5 +81,7 @@ fn generate_sub_account_id(account_id_string: String) -> AccountId {
         .take(8)
         .map(char::from)
         .collect();
-    format!("{}.{}", random_string, account_id_string).parse().unwrap()
+    format!("{}.{}", random_string, account_id_string)
+        .parse()
+        .unwrap()
 }

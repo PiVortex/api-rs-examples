@@ -1,8 +1,8 @@
 use dotenv::dotenv;
-use near_api::prelude::{Account, AccountId, NetworkConfig, Signer, NearToken};
+use near_api::prelude::{Account, AccountId, NearToken, NetworkConfig, Signer};
 use near_crypto::SecretKey;
-use std::str::FromStr;
 use rand::{thread_rng, Rng};
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() {
@@ -21,9 +21,9 @@ async fn main() {
     let delete_account_id = generate_testnet_account_id();
     let (delete_account_private_key, create_account_tx) = Account::create_account()
         .fund_myself(
-            delete_account_id.clone(), 
+            delete_account_id.clone(),
             beneficiary_account_id.clone(),
-            NearToken::from_millinear(100), 
+            NearToken::from_millinear(100),
         )
         .new_keypair()
         .generate_secret_key()
@@ -36,14 +36,14 @@ async fn main() {
         .unwrap();
 
     // Create an account object for the new account
-    // and a new signer 
+    // and a new signer
     let account_to_delete = Account(delete_account_id.clone());
     let signer = Signer::new(Signer::secret_key(delete_account_private_key)).unwrap();
 
     // Delete the account with account Id of the account object
     let delete_account_result = account_to_delete
         .delete_account_with_beneficiary(beneficiary_account_id.clone()) // example-beneficiary.testnet
-        .with_signer(signer.clone()) // Signer is the account that is being deleted 
+        .with_signer(signer.clone()) // Signer is the account that is being deleted
         .send_to(&network)
         .await
         .unwrap();

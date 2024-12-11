@@ -32,5 +32,3 @@ fn main() {
     let display_amount = NearToken::exact_amount_display(&ONE_NEAR);
     println!("{:?}", display_amount);
 }
-
-

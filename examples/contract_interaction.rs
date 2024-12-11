@@ -1,8 +1,8 @@
 use dotenv::dotenv;
-use near_api::prelude::{AccountId, NetworkConfig, Contract, Signer, NearToken, Data};
+use near_api::prelude::{AccountId, Contract, Data, NearToken, NetworkConfig, Signer};
 use near_crypto::SecretKey;
-use std::str::FromStr;
 use serde_json::json;
+use std::str::FromStr;
 
 #[tokio::main]
 async fn main() {
@@ -49,7 +49,7 @@ async fn main() {
         .unwrap();
     println!("{:?}", function_call_result);
 
-    // Deploy a contract to an account 
+    // Deploy a contract to an account
     // Set up a contract object
     let new_contract = Contract(account_id.clone());
     let deploy_result = new_contract
