@@ -2,3 +2,4 @@ target/
 .env
 Cargo.lock
 .DS_Store
+credentials-file.json
