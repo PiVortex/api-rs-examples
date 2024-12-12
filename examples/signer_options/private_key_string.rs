@@ -1,7 +1,8 @@
-use dotenv::dotenv;
 use near_api::prelude::{AccountId, NearToken, NetworkConfig, Signer, Tokens};
 use near_crypto::SecretKey;
+use dotenv::dotenv;
 use std::str::FromStr;
+
 
 #[tokio::main]
 async fn main() {

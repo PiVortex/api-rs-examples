@@ -1,7 +1,7 @@
-use dotenv::dotenv;
 use near_api::prelude::{Account, AccountId, NetworkConfig, Signer};
 use near_crypto::SecretKey;
 use near_primitives::account::{AccessKeyPermission, FunctionCallPermission};
+use dotenv::dotenv;
 use std::str::FromStr;
 
 #[tokio::main]

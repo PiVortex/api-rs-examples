@@ -1,5 +1,5 @@
-use dotenv::dotenv;
 use near_api::prelude::*;
+use dotenv::dotenv;
 use near_crypto::SecretKey;
 use std::str::FromStr;
 

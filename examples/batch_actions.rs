@@ -1,8 +1,8 @@
-use dotenv::dotenv;
 use near_api::prelude::{AccountId, NetworkConfig, Signer, Transaction};
 use near_crypto::SecretKey;
 use near_primitives::action::{FunctionCallAction, TransferAction};
 use near_primitives::transaction::Action;
+use dotenv::dotenv;
 use std::str::FromStr;
 
 #[tokio::main]

@@ -1,7 +1,7 @@
-use dotenv::dotenv;
 use near_api::prelude::{Account, AccountId, NearToken, NetworkConfig, Signer};
 use near_crypto::SecretKey;
 use rand::{thread_rng, Rng};
+use dotenv::dotenv;
 use std::str::FromStr;
 
 #[tokio::main]
