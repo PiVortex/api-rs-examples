@@ -1,8 +1,8 @@
+use dotenv::dotenv;
 use near_api::prelude::{Account, AccountId, NearToken, NetworkConfig, Signer};
 use near_crypto::SecretKey;
-use rand::{thread_rng, Rng};
-use dotenv::dotenv;
 use std::str::FromStr;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 #[tokio::main]
 async fn main() {
@@ -18,7 +18,17 @@ async fn main() {
     let network = NetworkConfig::testnet();
 
     // First create a new account to be deleted
-    let delete_account_id = generate_testnet_account_id();
+    // Generate a new account ID based on the current timestamp
+    let delete_account_id: AccountId = format!(
+        "{}.testnet",
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_millis()
+    )
+    .parse()
+    .unwrap();
+
     let (delete_account_private_key, create_account_tx) = Account::create_account()
         .fund_myself(
             delete_account_id.clone(),
@@ -48,15 +58,4 @@ async fn main() {
         .await
         .unwrap();
     println!("{:?}", delete_account_result);
-}
-
-// Random account ID generator
-fn generate_testnet_account_id() -> AccountId {
-    let random_string: String = thread_rng()
-        .sample_iter(&rand::distributions::Alphanumeric)
-        .filter(|c| c.is_ascii_lowercase() || c.is_ascii_digit()) // Allow only lowercase and digits
-        .take(8)
-        .map(char::from)
-        .collect();
-    format!("{}.testnet", random_string).parse().unwrap()
 }

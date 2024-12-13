@@ -1,5 +1,5 @@
-use near_api::prelude::{AccountId, NearToken, NetworkConfig, Signer, Tokens};
 use dotenv::dotenv;
+use near_api::prelude::{AccountId, NearToken, NetworkConfig, Signer, Tokens};
 
 #[tokio::main]
 async fn main() {

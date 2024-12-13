@@ -1,8 +1,7 @@
+use dotenv::dotenv;
 use near_api::prelude::{AccountId, NearToken, NetworkConfig, Signer, Tokens};
 use near_crypto::SecretKey;
-use dotenv::dotenv;
 use std::str::FromStr;
-
 
 #[tokio::main]
 async fn main() {
@@ -12,7 +11,7 @@ async fn main() {
 
     let account_id: AccountId = account_id_string.parse().unwrap();
 
-    // Create a signer from the private key string
+    // Create a signer from a private key string
     let private_key = SecretKey::from_str(&private_key_string).unwrap(); // ed25519::5Fg2...
     let signer = Signer::new(Signer::secret_key(private_key)).unwrap(); // Create the signer
 

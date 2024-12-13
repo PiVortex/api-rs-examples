@@ -1,8 +1,8 @@
+use dotenv::dotenv;
 use near_api::prelude::{AccountId, NetworkConfig, Signer, Transaction};
 use near_crypto::SecretKey;
 use near_primitives::action::{FunctionCallAction, TransferAction};
 use near_primitives::transaction::Action;
-use dotenv::dotenv;
 use std::str::FromStr;
 
 #[tokio::main]
@@ -29,14 +29,13 @@ async fn main() {
     let transfer_action = Action::Transfer(TransferAction {
         deposit: 1_000_000_000_000_000_000_000_000,
     }); // Transfer 1 NEAR
-    let actions = vec![call_action, transfer_action];
 
     // Send the batch of actions
     let batch_actions_result = Transaction::construct(
         account_id.clone(),
         "counter.near-examples.testnet".parse().unwrap(),
     )
-    .add_actions(actions)
+    .add_actions(vec![call_action, transfer_action])
     .with_signer(signer)
     .send_to(&network)
     .await

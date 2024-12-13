@@ -1,8 +1,8 @@
+use dotenv::dotenv;
 use near_api::prelude::{Account, AccountId, NearToken, NetworkConfig, Signer};
 use near_crypto::SecretKey;
-use rand::{thread_rng, Rng};
-use dotenv::dotenv;
 use std::str::FromStr;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 #[tokio::main]
 async fn main() {
@@ -18,7 +18,17 @@ async fn main() {
     let network = NetworkConfig::testnet();
 
     // Create a .testnet account with private key
-    let new_account_id = generate_testnet_account_id();
+    // Generate a new account ID based on the current timestamp
+    let new_account_id: AccountId = format!(
+        "{}.testnet",
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_millis()
+    )
+    .parse()
+    .unwrap();
+
     let (private_key, create_account_tx) = Account::create_account()
         .fund_myself(
             new_account_id.clone(), // example-account.testnet
@@ -40,7 +50,18 @@ async fn main() {
     println!("{:?}", create_account_result);
 
     // Create a sub account
-    let sub_account_id = generate_sub_account_id(account_id_string);
+    // Generate a new sub account ID based on the current timestamp
+    let sub_account_id: AccountId = format!(
+        "{}.{}",
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_millis(),
+        account_id
+    )
+    .parse()
+    .unwrap();
+
     let (private_key, create_sub_account_tx) = Account::create_account()
         .fund_myself(
             sub_account_id.clone(), // sub.example-account.testnet
@@ -60,28 +81,4 @@ async fn main() {
         .await
         .unwrap();
     println!("{:?}", create_sub_account_result);
-}
-
-// Random account ID generator
-fn generate_testnet_account_id() -> AccountId {
-    let random_string: String = thread_rng()
-        .sample_iter(&rand::distributions::Alphanumeric)
-        .filter(|c| c.is_ascii_lowercase() || c.is_ascii_digit()) // Allow only lowercase and digits
-        .take(8)
-        .map(char::from)
-        .collect();
-    format!("{}.testnet", random_string).parse().unwrap()
-}
-
-// Random sub account ID generator
-fn generate_sub_account_id(account_id_string: String) -> AccountId {
-    let random_string: String = thread_rng()
-        .sample_iter(&rand::distributions::Alphanumeric)
-        .filter(|c| c.is_ascii_lowercase() || c.is_ascii_digit()) // Allow only lowercase and digits
-        .take(8)
-        .map(char::from)
-        .collect();
-    format!("{}.{}", random_string, account_id_string)
-        .parse()
-        .unwrap()
 }
